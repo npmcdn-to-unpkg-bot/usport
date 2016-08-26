@@ -1,0 +1,7 @@
+{
+    "require": {
+        "flowjs/flow-php-server": "^1.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "google/apiclient": "^2.0"
+    }
+}
