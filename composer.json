@@ -1,7 +1,11 @@
 {
     "require": {
+    	"php": ">=5.5.9",
+        "laravel/framework": "^5.2",
+        "cartalyst/sentinel": "2.0.*",
         "flowjs/flow-php-server": "^1.0",
         "guzzlehttp/guzzle": "^6.2",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "facebook/graph-sdk": "^5.3"
     }
 }

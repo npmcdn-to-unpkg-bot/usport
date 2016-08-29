@@ -19,6 +19,7 @@ use App\Models\PostLike;
 use App\Models\PostComment;
 use App\Models\PostShare;
 use App\Repositories\Post\PostInterface;
+use GuzzleHttp\Client;
 
 class PostController extends Controller
 {
@@ -310,12 +311,8 @@ class PostController extends Controller
         return response()->json(array('error'=>0, 'total_posts'=>$count, 'data'=>$post, 'message'=>''));
     }
 
-    /* POST API */
-
     /**
-     * @param  string
-     * @param  string
-     * @param  string
+     * API create post
      * @param  string
      * @return json
      */
@@ -451,7 +448,7 @@ class PostController extends Controller
     /**
      * [unlikePost description]
      * @param  [type] $postId [description]
-     * @return [type]         [description]
+     * @return JSON
      */
     public function unlikePost(Request $request) {
         $postId = $request->get('post_id', 0);
@@ -735,6 +732,18 @@ class PostController extends Controller
         }
     }
 
+    public function deletePost(Request $request) {
+        $postId = $request->get('post_id', 0);
+        // validate post id 
+        if ($postId == 0) {
+            return response()->json(array('error'=>1001, 'data'=>'', 'message'=>'invalid param'));
+        }
+        $user = $this->verifyAuth($request);
+        if (!$user) {
+            return 
+        }
+    }
+
     /**
      * get list post with condition
      * 
@@ -953,6 +962,16 @@ class PostController extends Controller
         // upload to youtube
         // upload to facebook
         // return
+    }
+
+    /**
+     * delete fb post id
+     * @param  [type] $fbPostId [description]
+     * @return [type]           [description]
+     */
+    private function deleteFbPost($fbPostId) {
+        $url = config('cc.facebook_api.graph_url') . config('cc.facebook_api.fanpage_id') . '/' . $fbPostId;
+
     }
 
 }

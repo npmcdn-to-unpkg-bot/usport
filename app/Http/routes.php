@@ -260,10 +260,31 @@ if (App::environment() != 'production') {
 }
 
 /*Test*/
+Route::get('/test', function ($accessToken) {
+    echo 1; die;
+    /*// Initialize Guzzle client
+    $client = new GuzzleHttp\Client();
 
-// test sync data facebook
-Route::get('/syncfb/{accessToken}', function ($accessToken) {
-    
+    // Create a POST request
+    // update post
+    $response = $client->request(
+        'POST',
+        'https://graph.facebook.com/dancing.channel/590267971145079',
+        [
+            'form_params' => [
+                'message' => 'the updated message',
+                'access_token' => $accessToken
+            ]
+        ]
+    );
+
+    // Parse the response object, e.g. read the headers, body, etc.
+    $headers = $response->getHeaders();
+    $body = $response->getBody();
+
+    // Output headers and body for debugging purposes
+    var_dump($headers, $body);*/
+    die;
 });
 
 /*end test*/

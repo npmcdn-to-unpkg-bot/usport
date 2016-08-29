@@ -131,9 +131,9 @@ function getData ($url) {
 
 /**
  * postData description
- * @param  [type] $url      [description]
- * @param  [type] $postData [description]
- * @return [type]           [description]
+ * @param  String   $url      [description]
+ * @param  array    $postData
+ * @return JSON     $Result;
  */
 function postData ($url, $postData) {
     // use key 'http' even if you send the request to https://...

@@ -54,6 +54,7 @@ class UserController extends Controller
         $user->total_posts = \App\Models\Post::where('is_published', 1)->where('user_id', $userId)->count();
         return response()->json(array('error'=>0, 'data'=>$user, 'message'=>''));
     }
+
     /**
      * get user by facebook user id
      * @param  [type]
@@ -69,6 +70,66 @@ class UserController extends Controller
         } catch (Exception $e) {
             return response()->json(array('error'=>2001, 'data'=>'', 'message'=>'cannot find user.'));
         }
+        return response()->json(array('error'=>1005, 'data'=>'', 'message'=>'Unknown error.'));
+    }
+
+    /**
+     * api update userInfo
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function updateUserInfo(Request $request) {
+        $fbId = $request->get('fb_id', '');
+        $birthday = $request->get('birthday', 0);
+        $email = $request->get('email', '');
+        $gender = $request->get('gender', 0);
+        $name = $request->get('name', '');
+        $avatar = $request->get('avatar', '');
+        $phoneNumber = $request->get('phone_number', '');
+
+        // validate facebook user id
+        if ($fbId == '') {
+            return response()->json(array('error'=>1001, 'data'=>'', 'message'=>'invalid params|' . $fbId));
+        }
+
+        try {
+            $user = User::whereFbUserId($fbId)->first();
+            if (!$user) {
+                return response()->json(array('error'=>1003, 'data'=>'', 'message'=>'cannot find user.'));
+            }
+            // update birthday
+            if ($birthday != 0) {
+                $birthday = @date('Y-m-d h:i:s', strtotime($birthday));
+                $user->birthday = $birthday;
+            }
+            // update email
+            if ($email != '') {
+                $user->email = $email;
+            }
+            // update gender 1:male 2:femail
+            if (is_int($gender) && $gender > 0) {
+                $user->gender = $gender;
+            }
+            // update name
+            if ($name != '') {
+                $user->name = $name;
+            }
+            // update avatar
+            if ($avatar != '') {
+                $user->avatar = $avatar;
+            }
+            // update phone number
+            if ($phoneNumber != '') {
+                $user->phone_number = $phoneNumber;
+            }
+            // save to db
+            $user->save();
+
+            return response()->json(array('error'=>0, 'data'=>$user, 'message'=>''));
+        } catch (Exception $e) {
+            return response()->json(array('error'=>2001, 'data'=>'', 'message'=>'cannot find user.'));
+        }
+
         return response()->json(array('error'=>1005, 'data'=>'', 'message'=>'Unknown error.'));
     }
 

@@ -39,7 +39,7 @@ return [
 		'app_id' => '234920570236221',
 		'app_secret' => '3c36df0a3460eacf8d0ebdb620be4ca9',
 		'fanpage_id' => '285749658457046',
-
+		'access_token' => '234920570236221|EY7X1EXN_cqeh2jj2CucLtZTD8Q'
 	],
 	'upload_path' => DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d') . DIRECTORY_SEPARATOR,
 	'apiHashKey'  => '',
